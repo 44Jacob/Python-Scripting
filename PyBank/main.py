@@ -55,6 +55,6 @@ Greatest Decrease in Profits: {greatest_decrease_date} (${greatest_decrease:,})
 print(output)
 
 # Write results to a file
-output_file = '/Users/yakupaltinisik/Desktop/Data-Analyst/Projects/Python-Analysis/financial_analysis.txt'
+output_file = 'analysis/financial_analysis.txt'
 with open(output_file, 'w') as file:
-    file.write("Financial Analysis\n")
+    file.write(output)

@@ -1,56 +1,47 @@
 # csv module for reading the data file.
 
 import csv 
-file_name = "election_data.csv"
+file_name = "Resources/election_data.csv"
 
 #  read the data from election_data.csv
 
 with open (file_name, mode = 'r') as file: 
-    csvreader = csv.DirectReader(file)
-    data = list(csvreader)
-
+    data = csv.DictReader(file)
 #   Analyze the Data , The core of  task involves analyzing the data to compute: 
     
-    vote_counts = {}
+    candidates = {}
+    total_votes = 0
+    win_votes = 0
 
-for row in data:
-    candidate = row['Candidate']
-    if candidate in vote_counts:
-        vote_counts[candidate] += 1
-    else:
-        vote_counts[candidate] = 1
+    for row in data:
+        total_votes += 1
 
-total_votes = sum(vote_counts.values())
+        candidate = row['Candidate']
 
-#Calculate Percentages and Determine Winner
-#For each candidate, calculate the percentage of votes they received. Also, identify the candidate with the most votes.
+        if candidate not in candidates.keys():
+            candidates[candidate] = 0
 
-winner = None
-max_votes = 0
+        candidates[candidate] += 1
 
-for candidate, votes in vote_counts.items():
-    percentage = (votes / total_votes) * 100
-    print(f"{candidate}: {percentage:.3f}% ({votes})")
-    if votes > max_votes:
-        max_votes = votes
-        winner = candidate
-
-# Print and Save the Results to the terminal and save them to a text file.
-        
 output = f"""
 Election Results
 -------------------------
-Total Votes: {total_votes}
+Total Votes: {total_votes:,}
 -------------------------
 """
 
-for candidate, votes in vote_counts.items():
+for candidate in candidates.keys():
+    votes = candidates[candidate]
     percentage = (votes / total_votes) * 100
-    output += f"{candidate}: {percentage:.3f}% ({votes})\n"
+
+    output += f"{candidate}: {percentage:.3f}% ({votes:,})\n"
+
+    if votes > win_votes:
+        win_votes = votes
+        winner = candidate
 
 output += f"-------------------------\nWinner: {winner}\n-------------------------"
 
 print(output)
 
-with open('election_results.txt', mode='w') as file:
-    file.write(output)
+open('analysis/Election_Analysis.txt', mode='w').write(output)
