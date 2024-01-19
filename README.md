@@ -8,4 +8,4 @@ PyBank and PyPoll are Python projects aimed at automating data analysis tasks. P
 To run these projects, ensure you have Python 3.x installed on your system. Start by cloning this repository:
 
 ```bash == terminal 
-git clone https://github.com/[44jacob]/python-analysis-projects.git
+git clone (https://github.com/44Jacob/Python-Analysis.git)https://github.com/44Jacob/Python-Analysis.git
